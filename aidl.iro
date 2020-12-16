@@ -1,0 +1,295 @@
+#################################################################
+## Iro
+################################################################ 
+##
+## * Press Ctrl + '+'/'-' To Zoom in
+## * Press Ctrl + S to save and recalculate... 
+## * Documents are saved to web storage.
+## * Only one save slot supported.
+## * Matches cannot span lines.
+## * Unicode chars must be defined in \u0000 to \uffff format.
+## * All matches must be contained by a single group ( ... )
+## * Look behinds not permitted, (?<= or (?<!
+## * Look forwards are permitted (?= or (?!
+## * Constants are defined as __my_const = (......)
+## * The \= format allows unescaped regular expressions
+## * Constants referenced by match \= $${__my_const}
+## * Constants can reference other constants
+## * You are free to delete all the default scopes.
+## * Twitter : ainslec , Web: http://eeyo.io/iro
+##
+################################################################
+
+name                   = aidl
+file_extensions []     = aidl;
+
+################################################################
+## Constants
+################################################################
+
+__KEYWORD \= (parcelable|import|package|cpp_header|const|interface|oneway|enum|union|inout|in|out)
+__PRIMITIVE_TYPE \= (void|boolean|byte|char|short|int|long|float|double)
+__BUILTIN_TYPE \= (String|CharSequence|List|Map)
+__WHITESPACE \= ([ \t\r]+)
+__IDENTIFIER \= ([_a-zA-Z][_a-zA-Z0-9]*)
+__SYMBOL \= ([:;,.=+*/%&|!~<>\^\-]|<<|>>|&&|\|\||<=|>=|==|!=)
+
+################################################################
+## Styles
+################################################################
+
+styles [] {
+
+.line_comment : style {
+   color                 = light_green
+   italic                = true
+   ace_scope             = comment.line.double-slash
+   textmate_scope        = comment.line.double-slash
+   pygments_scope        = Comment
+}
+
+.block_comment : style {
+   color                 = light_green
+   italic                = true
+   ace_scope             = comment.block
+   textmate_scope        = comment.block
+   pygments_scope        = Comment
+}
+
+.doc_comment : style {
+   color                 = light_green
+   italic                = true
+   bold = true
+   ace_scope             = comment.block.documentation
+   textmate_scope        = comment.block.documentation
+   pygments_scope        = Comment
+}
+
+.keyword : style {
+   color     = cyan
+   ace_scope             = keyword
+   textmate_scope        = keyword
+   pygments_scope        = Keyword
+}
+
+.builtin_type : style {
+  color       = yellow
+  ace_scope = support.class
+  textmate_scope = support.class
+}
+
+.primitive_type : style {
+  color       = yellow
+  ace_scope = storage.type
+  textmate_scope = storage.type
+}
+
+.intvalue : style {
+   color                 = gold
+   ace_scope             = constant.numeric.decimal
+   textmate_scope        = constant.numeric.decimal
+   pygments_scope        = Number
+}
+
+.hexvalue : style {
+   color                 = green
+   ace_scope             = constant.numeric.hex
+   textmate_scope        = constant.numeric.hex
+   pygments_scope        = Number
+}
+
+.floatvalue : style {
+   color                 = light_blue
+   ace_scope             = constant.numeric.float
+   textmate_scope        = constant.numeric.float
+   pygments_scope        = Number
+}
+
+.charvalue : style {
+   color  = pink
+   ace_scope = constant.character
+   textmate_scope = constant.character
+}
+
+.stringvalue : style {
+   color                 = brown
+   ace_scope             = string.double
+   textmate_scope        = string.double
+   pygments_scope        = String
+}
+
+.booleanvalue : style {
+   color = blue
+   ace_scope = constant.language
+   textmate_scope = constant.language
+}
+
+.punctuation : style {
+   color     = red_2
+   ace_scope             = punctuation
+   textmate_scope        = punctuation
+   pygments_scope        = Punctuation
+}
+
+.identifier : style {
+   color = white
+}
+
+.illegal : style {
+   color                 = white
+   background_color      = red
+   ace_scope             = invalid.illegal
+   textmate_scope        = invalid.illegal
+   pygments_scope        = Generic.Error
+}
+
+}
+
+#################################################
+## Parse contexts
+#################################################
+
+contexts [] {
+
+##############################################
+## Main Context - Entry point context
+##############################################
+
+main : context {
+   : include "multi_line_comment" ;
+   
+   : pattern {
+      regex          \= (//.*)
+      styles []       = .line_comment;
+   }
+   
+   : pattern {
+      regex          \= $${__KEYWORD}
+      styles []       = .keyword;
+   }
+   
+   : pattern {
+      regex \= $${__PRIMITIVE_TYPE}
+      styles [] = .primitive_type;
+   }
+   
+   : pattern {
+     regex           \= $${__BUILTIN_TYPE}
+     styles []        = .builtin_type;
+   }
+   
+   : include "literal" ;
+   
+   : pattern {
+     regex \= $${__IDENTIFIER}
+     styles [] = .identifier;
+   }
+   
+   : inline_push {
+      regex          \= (\{)
+      styles []       = .punctuation;
+      : pop {  
+         regex       \= (\})
+         styles []    = .punctuation;
+      }
+      : include "main" ;
+   }
+   
+   : inline_push {
+      regex          \= (\()
+      styles []       = .punctuation;
+      : pop {  
+         regex       \= (\))
+         styles []    = .punctuation;
+      }
+      : include "main" ;
+   }
+   
+   : inline_push {
+      regex          \= (\[)
+      styles []       = .punctuation;
+      : pop {  
+         regex       \= (\])
+         styles []    = .punctuation;
+      }
+      : include "main" ;
+   }
+   
+   : pattern {
+      regex          \= $${__SYMBOL}
+      styles []       = .punctuation;
+   }
+
+   : pattern {
+      regex          \= ([^\s])
+      styles []       = .illegal;
+   }
+}
+
+#################################################
+## End of Contexts
+#################################################
+
+###########################################
+## Numeric Context
+###########################################
+
+literal : context {
+   : include "numeric" ;
+   : pattern {
+      regex          \= ('.')
+      styles []      = .charvalue;
+   }
+   : pattern {
+      regex \= ("[^\"]*")
+      styles [] = .stringvalue;
+   }
+   : pattern {
+      regex \= (true|false)
+      styles [] = .booleanvalue;
+   }
+}
+
+numeric : context {
+   : pattern {
+      regex          \= (0[x|X][0-9a-fA-F]+[lL]?)
+      styles []       = .hexvalue;
+   }
+   : pattern {
+      // Float must have either a decimal place or an f.
+      regex          \= ([0-9]*\.[0-9]+([eE][-+]?[0-9]+)?f?|[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?f)
+      styles []       = .floatvalue;
+   }
+   : pattern {
+      regex          \= ([0-9]+[lL]?)
+      styles []       = .intvalue;
+   }
+}
+
+###########################################
+## Multi Line Comment Context
+###########################################
+
+multi_line_comment : context {
+   description        = multiline
+   : inline_push {
+      regex          \= (/\*\*)
+      styles []       = .doc_comment;
+      default_style   = .doc_comment
+      : pop {
+         regex       \= (\*/)
+         styles []    = .doc_comment;
+      }
+   }
+   : inline_push {
+      regex          \= (/\*)
+      styles []       = .block_comment;
+      default_style   = .block_comment
+      : pop {
+         regex       \= (\*/)
+         styles []    = .block_comment;
+      }
+   }
+}
+   
+}
