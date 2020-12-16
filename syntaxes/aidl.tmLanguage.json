@@ -39,6 +39,10 @@
 					"name": "text.aidl"
 				},
 				{
+					"match": "(@([_a-zA-Z][_a-zA-Z0-9]*))",
+					"name": "storage.type.annotation.aidl"
+				},
+				{
 					"begin": "(\\{)",
 					"beginCaptures": {
 						"1": {

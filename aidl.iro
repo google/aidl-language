@@ -135,6 +135,12 @@ styles [] {
    color = white
 }
 
+.annotation : style {
+   color = light_blue
+   ace_scope = storage.type.annotation
+   textmate_scope = storage.type.annotation
+}
+
 .illegal : style {
    color                 = white
    background_color      = red
@@ -181,8 +187,13 @@ main : context {
    : include "literal" ;
    
    : pattern {
-     regex \= $${__IDENTIFIER}
-     styles [] = .identifier;
+     regex           \= $${__IDENTIFIER}
+     styles []        = .identifier;
+   }
+   
+   : pattern {
+      regex          \= (@$${__IDENTIFIER})
+      styles []       = .annotation;
    }
    
    : inline_push {
