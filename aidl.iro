@@ -5,11 +5,12 @@ file_extensions []     = aidl;
 ## Constants
 ################################################################
 
-__KEYWORD \= (parcelable|import|package|cpp_header|const|interface|oneway|enum|union|inout|in|out)
+__KEYWORD \= (parcelable|cpp_header|const|oneway|enum|union|inout|in|out)
 __PRIMITIVE_TYPE \= (void|boolean|byte|char|short|int|long|float|double)
 __BUILTIN_TYPE \= (String|CharSequence|List|Map)
 __WHITESPACE \= ([ \t\r]+)
 __IDENTIFIER \= ([_a-zA-Z][_a-zA-Z0-9]*)
+__QUALIFIED_NAME \= ($${__IDENTIFIER}(?:\.$${__IDENTIFIER})+)
 __SYMBOL \= ([:;,.=+*/%&|!~<>\^\-]|<<|>>|&&|\|\||<=|>=|==|!=)
 
 ################################################################
@@ -112,6 +113,10 @@ styles [] {
    pygments_scope        = Generic.Error
 }
 
+.whitespace : style {
+   color                = white
+}
+
 }
 
 #################################################
@@ -131,6 +136,90 @@ main : context {
       regex          \= (//.*)
       styles []       = .line_comment;
    }
+   
+   : include "package" ;
+   : include "import" ;
+   : include "decls" ;
+   
+   : inline_push {
+      regex          \= (\{)
+      styles []       = .punctuation;
+      : pop {
+         regex       \= (\})
+         styles []    = .punctuation;
+      }
+      : include "main" ;
+   }
+   
+   : pattern {
+      regex          \= ([^\s])
+      styles []       = .illegal;
+   }
+}
+
+package : context {
+   : inline_push {
+      regex          \= (package)
+      styles []       = .keyword;
+      : pop {
+         regex       \= (;)
+         styles []    = .punctuation;
+      }
+      : pattern {
+         regex       \= $${__QUALIFIED_NAME}
+         styles []    = .identifier;
+      }
+   }
+}
+
+import : context {
+   : inline_push {
+      regex          \= (import)
+      styles []       = .keyword;
+      : pop {
+         regex       \= (;)
+         styles []    = .punctuation;
+      }
+      : pattern {
+         regex       \= $${__QUALIFIED_NAME}
+         styles []    = .identifier;
+      }
+   }
+}
+
+decls : context {
+   : include "annotation" ;
+   : push {
+      regex          \= (interface)(\s+)$${__IDENTIFIER}(\s+)(\{)
+      styles []       = .keyword, .whitespace, .identifier, .whitespace, .punctuation;
+      context []      = interface_members;
+   }
+   : push {
+      regex          \= (oneway)(\s)(interface)(\s+)$${__IDENTIFIER}(\s+)(\{)
+      styles []       = .keyword, .whitespace, .keyword, .whitespace, .identifier, .whitespace, .punctuation;
+      context []      = interface_members;
+   }
+}
+
+interface_members : context {
+   : pop {
+      regex       \= (\})
+      styles []    = .punctuation;
+   }
+   : include "comments";
+   : include "generic" ;
+}
+
+comments : context {
+   : include "multi_line_comment" ;
+   : pattern {
+      regex          \= (//.*)
+      styles []       = .line_comment;
+   }
+}
+
+generic : context {
+   : include "comments";
    
    : pattern {
       regex          \= (\b$${__KEYWORD}\b)
@@ -154,49 +243,36 @@ main : context {
      styles []        = .identifier;
    }
    
-   : pattern {
-      regex          \= (@$${__IDENTIFIER})
-      styles []       = .annotation;
-   }
-   
-   : inline_push {
-      regex          \= (\{)
-      styles []       = .punctuation;
-      : pop {  
-         regex       \= (\})
-         styles []    = .punctuation;
-      }
-      : include "main" ;
-   }
-   
    : inline_push {
       regex          \= (\()
       styles []       = .punctuation;
-      : pop {  
+      : pop {
          regex       \= (\))
          styles []    = .punctuation;
       }
-      : include "main" ;
+      : include "generic" ;
    }
    
    : inline_push {
       regex          \= (\[)
       styles []       = .punctuation;
-      : pop {  
+      : pop {
          regex       \= (\])
          styles []    = .punctuation;
       }
-      : include "main" ;
+      : include "generic" ;
    }
    
    : pattern {
       regex          \= $${__SYMBOL}
       styles []       = .punctuation;
    }
+}
 
+annotation : context {
    : pattern {
-      regex          \= ([^\s])
-      styles []       = .illegal;
+      regex          \= (@$${__IDENTIFIER})
+      styles []       = .annotation;
    }
 }
 

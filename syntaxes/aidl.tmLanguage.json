@@ -20,27 +20,13 @@
 					"name": "comment.line.double-slash.aidl"
 				},
 				{
-					"match": "(\\b(parcelable|import|package|cpp_header|const|interface|oneway|enum|union|inout|in|out)\\b)",
-					"name": "keyword.aidl"
+					"include": "#package"
 				},
 				{
-					"match": "(\\b(void|boolean|byte|char|short|int|long|float|double)\\b)",
-					"name": "storage.type.aidl"
+					"include": "#import"
 				},
 				{
-					"match": "(\\b(String|CharSequence|List|Map)\\b)",
-					"name": "support.class.aidl"
-				},
-				{
-					"include": "#literal"
-				},
-				{
-					"match": "([_a-zA-Z][_a-zA-Z0-9]*)",
-					"name": "text.aidl"
-				},
-				{
-					"match": "(@([_a-zA-Z][_a-zA-Z0-9]*))",
-					"name": "storage.type.annotation.aidl"
+					"include": "#decls"
 				},
 				{
 					"begin": "(\\{)",
@@ -62,6 +48,130 @@
 					}
 				},
 				{
+					"match": "([^\\s])",
+					"name": "invalid.illegal.aidl"
+				}
+			]
+		},
+		"annotation": {
+			"patterns": [
+				{
+					"match": "(@([_a-zA-Z][_a-zA-Z0-9]*))",
+					"name": "storage.type.annotation.aidl"
+				}
+			]
+		},
+		"comments": {
+			"patterns": [
+				{
+					"include": "#multi_line_comment"
+				},
+				{
+					"match": "(\/\/.*)",
+					"name": "comment.line.double-slash.aidl"
+				}
+			]
+		},
+		"decls": {
+			"patterns": [
+				{
+					"include": "#annotation"
+				},
+				{
+					"begin": "(interface)(\\s+)([_a-zA-Z][_a-zA-Z0-9]*)(\\s+)(\\{)",
+					"beginCaptures": {
+						"1": {
+							"name": "keyword.aidl"
+						},
+						"2": {
+							"name": "text.aidl"
+						},
+						"3": {
+							"name": "text.aidl"
+						},
+						"4": {
+							"name": "text.aidl"
+						},
+						"5": {
+							"name": "punctuation.aidl"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#interface_members"
+						}
+					],
+					"end": "(\\})",
+					"endCaptures": {
+						"1": {
+							"name": "punctuation.aidl"
+						}
+					}
+				},
+				{
+					"begin": "(oneway)(\\s)(interface)(\\s+)([_a-zA-Z][_a-zA-Z0-9]*)(\\s+)(\\{)",
+					"beginCaptures": {
+						"1": {
+							"name": "keyword.aidl"
+						},
+						"2": {
+							"name": "text.aidl"
+						},
+						"3": {
+							"name": "keyword.aidl"
+						},
+						"4": {
+							"name": "text.aidl"
+						},
+						"5": {
+							"name": "text.aidl"
+						},
+						"6": {
+							"name": "text.aidl"
+						},
+						"7": {
+							"name": "punctuation.aidl"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#interface_members"
+						}
+					],
+					"end": "(\\})",
+					"endCaptures": {
+						"1": {
+							"name": "punctuation.aidl"
+						}
+					}
+				}
+			]
+		},
+		"generic": {
+			"patterns": [
+				{
+					"include": "#comments"
+				},
+				{
+					"match": "(\\b(parcelable|cpp_header|const|oneway|enum|union|inout|in|out)\\b)",
+					"name": "keyword.aidl"
+				},
+				{
+					"match": "(\\b(void|boolean|byte|char|short|int|long|float|double)\\b)",
+					"name": "storage.type.aidl"
+				},
+				{
+					"match": "(\\b(String|CharSequence|List|Map)\\b)",
+					"name": "support.class.aidl"
+				},
+				{
+					"include": "#literal"
+				},
+				{
+					"match": "([_a-zA-Z][_a-zA-Z0-9]*)",
+					"name": "text.aidl"
+				},
+				{
 					"begin": "(\\()",
 					"beginCaptures": {
 						"1": {
@@ -70,7 +180,7 @@
 					},
 					"patterns": [
 						{
-							"include": "#main__2"
+							"include": "#generic__1"
 						}
 					],
 					"end": "(\\))",
@@ -89,7 +199,7 @@
 					},
 					"patterns": [
 						{
-							"include": "#main__3"
+							"include": "#generic__2"
 						}
 					],
 					"end": "(\\])",
@@ -102,10 +212,61 @@
 				{
 					"match": "([\\x{003a}\\x{003b}\\x{002c}.\\x{003d}\\x{002b}\\x{002a}\\x{002f}\\x{0025}\\x{0026}\\x{007c}\\x{0021}\\x{007e}\\x{003c}\\x{003e}\\^\\-]|<<|>>|&&|\\|\\||<=|>=|==|!=)",
 					"name": "punctuation.aidl"
+				}
+			]
+		},
+		"generic__1": {
+			"patterns": [
+				{
+					"include": "#generic"
+				}
+			]
+		},
+		"generic__2": {
+			"patterns": [
+				{
+					"include": "#generic"
+				}
+			]
+		},
+		"import": {
+			"patterns": [
+				{
+					"begin": "(import)",
+					"beginCaptures": {
+						"1": {
+							"name": "keyword.aidl"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#import__1"
+						}
+					],
+					"end": "(;)",
+					"endCaptures": {
+						"1": {
+							"name": "punctuation.aidl"
+						}
+					}
+				}
+			]
+		},
+		"import__1": {
+			"patterns": [
+				{
+					"match": "(([_a-zA-Z][_a-zA-Z0-9]*)(?:\\.([_a-zA-Z][_a-zA-Z0-9]*))+)",
+					"name": "text.aidl"
+				}
+			]
+		},
+		"interface_members": {
+			"patterns": [
+				{
+					"include": "#comments"
 				},
 				{
-					"match": "([^\\s])",
-					"name": "invalid.illegal.aidl"
+					"include": "#generic"
 				}
 			]
 		},
@@ -129,20 +290,6 @@
 			]
 		},
 		"main__1": {
-			"patterns": [
-				{
-					"include": "#main"
-				}
-			]
-		},
-		"main__2": {
-			"patterns": [
-				{
-					"include": "#main"
-				}
-			]
-		},
-		"main__3": {
 			"patterns": [
 				{
 					"include": "#main"
@@ -202,6 +349,37 @@
 				{
 					"match": "([0-9]+[lL]?)",
 					"name": "constant.numeric.decimal.aidl"
+				}
+			]
+		},
+		"package": {
+			"patterns": [
+				{
+					"begin": "(package)",
+					"beginCaptures": {
+						"1": {
+							"name": "keyword.aidl"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#package__1"
+						}
+					],
+					"end": "(;)",
+					"endCaptures": {
+						"1": {
+							"name": "punctuation.aidl"
+						}
+					}
+				}
+			]
+		},
+		"package__1": {
+			"patterns": [
+				{
+					"match": "(([_a-zA-Z][_a-zA-Z0-9]*)(?:\\.([_a-zA-Z][_a-zA-Z0-9]*))+)",
+					"name": "text.aidl"
 				}
 			]
 		}
