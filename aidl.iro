@@ -164,17 +164,17 @@ main : context {
    }
    
    : pattern {
-      regex          \= $${__KEYWORD}
+      regex          \= (\b$${__KEYWORD}\b)
       styles []       = .keyword;
    }
    
    : pattern {
-      regex \= $${__PRIMITIVE_TYPE}
-      styles [] = .primitive_type;
+      regex          \= (\b$${__PRIMITIVE_TYPE}\b)
+      styles []       = .primitive_type;
    }
    
    : pattern {
-     regex           \= $${__BUILTIN_TYPE}
+     regex           \= (\b$${__BUILTIN_TYPE}\b)
      styles []        = .builtin_type;
    }
    

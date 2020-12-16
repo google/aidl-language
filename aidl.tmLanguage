@@ -35,19 +35,19 @@
           </dict>
           <dict>
             <key>match</key>
-            <string>(parcelable|import|package|cpp_header|const|interface|oneway|enum|union|inout|in|out)</string>
+            <string>(\b(parcelable|import|package|cpp_header|const|interface|oneway|enum|union|inout|in|out)\b)</string>
             <key>name</key>
             <string>keyword.aidl</string>
           </dict>
           <dict>
             <key>match</key>
-            <string>(void|boolean|byte|char|short|int|long|float|double)</string>
+            <string>(\b(void|boolean|byte|char|short|int|long|float|double)\b)</string>
             <key>name</key>
             <string>storage.type.aidl</string>
           </dict>
           <dict>
             <key>match</key>
-            <string>(String|CharSequence|List|Map)</string>
+            <string>(\b(String|CharSequence|List|Map)\b)</string>
             <key>name</key>
             <string>support.class.aidl</string>
           </dict>
