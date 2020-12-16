@@ -1,25 +1,3 @@
-#################################################################
-## Iro
-################################################################ 
-##
-## * Press Ctrl + '+'/'-' To Zoom in
-## * Press Ctrl + S to save and recalculate... 
-## * Documents are saved to web storage.
-## * Only one save slot supported.
-## * Matches cannot span lines.
-## * Unicode chars must be defined in \u0000 to \uffff format.
-## * All matches must be contained by a single group ( ... )
-## * Look behinds not permitted, (?<= or (?<!
-## * Look forwards are permitted (?= or (?!
-## * Constants are defined as __my_const = (......)
-## * The \= format allows unescaped regular expressions
-## * Constants referenced by match \= $${__my_const}
-## * Constants can reference other constants
-## * You are free to delete all the default scopes.
-## * Twitter : ainslec , Web: http://eeyo.io/iro
-##
-################################################################
-
 name                   = aidl
 file_extensions []     = aidl;
 
@@ -43,7 +21,6 @@ styles [] {
 .line_comment : style {
    color                 = light_green
    italic                = true
-   ace_scope             = comment.line.double-slash
    textmate_scope        = comment.line.double-slash
    pygments_scope        = Comment
 }
@@ -51,7 +28,6 @@ styles [] {
 .block_comment : style {
    color                 = light_green
    italic                = true
-   ace_scope             = comment.block
    textmate_scope        = comment.block
    pygments_scope        = Comment
 }
@@ -60,73 +36,62 @@ styles [] {
    color                 = light_green
    italic                = true
    bold = true
-   ace_scope             = comment.block.documentation
    textmate_scope        = comment.block.documentation
    pygments_scope        = Comment
 }
 
 .keyword : style {
    color     = cyan
-   ace_scope             = keyword
    textmate_scope        = keyword
    pygments_scope        = Keyword
 }
 
 .builtin_type : style {
   color       = yellow
-  ace_scope = support.class
   textmate_scope = support.class
 }
 
 .primitive_type : style {
   color       = yellow
-  ace_scope = storage.type
   textmate_scope = storage.type
 }
 
 .intvalue : style {
    color                 = gold
-   ace_scope             = constant.numeric.decimal
    textmate_scope        = constant.numeric.decimal
    pygments_scope        = Number
 }
 
 .hexvalue : style {
    color                 = green
-   ace_scope             = constant.numeric.hex
    textmate_scope        = constant.numeric.hex
    pygments_scope        = Number
 }
 
 .floatvalue : style {
    color                 = light_blue
-   ace_scope             = constant.numeric.float
    textmate_scope        = constant.numeric.float
    pygments_scope        = Number
 }
 
 .charvalue : style {
    color  = pink
-   ace_scope = constant.character
    textmate_scope = constant.character
 }
 
 .stringvalue : style {
    color                 = brown
-   ace_scope             = string.quoted.double
    textmate_scope        = string.quoted.double
    pygments_scope        = String
 }
 
 .booleanvalue : style {
    color = blue
-   ace_scope = constant.language
    textmate_scope = constant.language
 }
 
 .punctuation : style {
    color     = red_2
-   ace_scope             = punctuation
    textmate_scope        = punctuation
    pygments_scope        = Punctuation
 }
@@ -137,14 +102,12 @@ styles [] {
 
 .annotation : style {
    color = light_blue
-   ace_scope = storage.type.annotation
    textmate_scope = storage.type.annotation
 }
 
 .illegal : style {
    color                 = white
    background_color      = red
-   ace_scope             = invalid.illegal
    textmate_scope        = invalid.illegal
    pygments_scope        = Generic.Error
 }
@@ -237,14 +200,6 @@ main : context {
    }
 }
 
-#################################################
-## End of Contexts
-#################################################
-
-###########################################
-## Numeric Context
-###########################################
-
 literal : context {
    : include "numeric" ;
    : pattern {
@@ -276,10 +231,6 @@ numeric : context {
       styles []       = .intvalue;
    }
 }
-
-###########################################
-## Multi Line Comment Context
-###########################################
 
 multi_line_comment : context {
    description        = multiline
