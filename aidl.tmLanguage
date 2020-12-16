@@ -180,7 +180,7 @@
             <key>match</key>
             <string>("[^\"]*")</string>
             <key>name</key>
-            <string>string.double.aidl</string>
+            <string>string.quoted.double.aidl</string>
           </dict>
           <dict>
             <key>match</key>

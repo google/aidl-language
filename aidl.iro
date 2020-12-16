@@ -113,8 +113,8 @@ styles [] {
 
 .stringvalue : style {
    color                 = brown
-   ace_scope             = string.double
-   textmate_scope        = string.double
+   ace_scope             = string.quoted.double
+   textmate_scope        = string.quoted.double
    pygments_scope        = String
 }
 
