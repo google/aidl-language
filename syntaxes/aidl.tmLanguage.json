@@ -3,6 +3,7 @@
 	"fileTypes": [
 		"aidl"
 	],
+	"scopeName": "source.aidl",
 	"name": "AIDL",
 	"foldingStartMarker": "\\{\\s*$",
 	"foldingStopMarker": "^\\s*\\}",
@@ -385,6 +386,5 @@
 				}
 			]
 		}
-	},
-	"scopeName": "source.aidl"
+	}
 }
