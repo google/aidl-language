@@ -265,7 +265,7 @@
 		"import__1": {
 			"patterns": [
 				{
-					"match": "(([_a-zA-Z][_a-zA-Z0-9]*)(?:\\.([_a-zA-Z][_a-zA-Z0-9]*))+)",
+					"match": "(([_a-zA-Z][_a-zA-Z0-9]*)(?:\\.([_a-zA-Z][_a-zA-Z0-9]*))*)",
 					"name": "text.aidl"
 				}
 			]
