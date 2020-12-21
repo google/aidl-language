@@ -291,7 +291,7 @@
 				},
 				{
 					"match": "(\")([^\\\"]*)(\")",
-					"name": "meta.string",
+					"name": "meta.string.aidl",
 					"captures": {
 						"1": {
 							"name": "punctuation.definition.string.begin.aidl"
