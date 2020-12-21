@@ -71,15 +71,72 @@ repository:
         end: '(\})'
         endCaptures:
           '1': {name: punctuation.section.braces.end.aidl}
-  generic:
+      # parcelable_decl
+      - name: meta.parcelable.aidl
+        begin: '(parcelable)\s+((?:[_a-zA-Z][_a-zA-Z0-9]*)(?:\.([_a-zA-Z][_a-zA-Z0-9]*))*)\s*(?:(<)((:?[_a-zA-Z][_a-zA-Z0-9]*)(:?,\s+[_a-zA-Z][_a-zA-Z0-9]*)*)(>)\s*)?(\{)'
+        beginCaptures:
+          '1': {name: storage.type.parcelable.aidl}
+          '2': {name: entity.name.type.parcelable.aidl}
+          '3': {name: punctuation.definition.generic.begin.aidl}
+          '4': {name: entity.name.other.aidl}
+          '5': {name: punctuation.definition.generic.end.aidl}
+          '6': {name: punctuation.section.braces.begin.aidl}
+        patterns:
+          - include: '#parcelable_members'
+        end: '(\})'
+        endCaptures:
+          '1': {name: punctuation.section.braces.end.aidl}
+      # enum_decl
+      - name: meta.enum.aidl
+        begin: '(enum)\s+([_a-zA-Z][_a-zA-Z0-9]*)\s*(\{)'
+        beginCaptures:
+          '1': {name: storage.type.enum.aidl}
+          '2': {name: entity.name.type.enum.aidl}
+          '3': {name: punctuation.section.braces.begin.aidl}
+        end: '(\})'
+        endCaptures:
+          '1': {name: punctuation.section.braces.end.aidl}
+        patterns:
+          - include: '#enum_decl_body'
+      # union_decl
+      - name: meta.union.aidl
+        begin: '(union)\s+((?:[_a-zA-Z][_a-zA-Z0-9]*)(?:\.([_a-zA-Z][_a-zA-Z0-9]*))*)\s*(?:(<)((:?[_a-zA-Z][_a-zA-Z0-9]*)(:?,\s+[_a-zA-Z][_a-zA-Z0-9]*)*)(>)\s*)?(\{)'
+        beginCaptures:
+          '1': {name: storage.type.union.aidl}
+          '2': {name: entity.name.type.union.aidl}
+          '3': {name: punctuation.definition.generic.begin.aidl}
+          '4': {name: entity.name.other.aidl}
+          '5': {name: punctuation.definition.generic.end.aidl}
+          '6': {name: punctuation.section.braces.begin.aidl}
+        end: '(\})'
+        endCaptures:
+          '1': {name: punctuation.section.braces.end.aidl}
+        patterns:
+          - include: '#parcelable_members'
+  type:
     patterns:
-      - include: '#comments'
-      - match: (\b(parcelable|cpp_header|const|oneway|enum|union|inout|in|out)\b)
-        name: keyword.aidl
+      - include: '#annotation'
       - match: (\b(void|boolean|byte|char|short|int|long|float|double)\b)
         name: storage.type.aidl
       - match: (\b(String|CharSequence|List|Map)\b)
         name: support.class.aidl
+      - match: '\[\]'
+        name: punctuation.aidl
+      - name: meta.generic.aidl
+        begin: (\<)
+        beginCaptures:
+          '1': {name: punctuation.definition.generic.begin.aidl}
+        end: (\>)
+        endCaptures:
+          '1': {name: punctuation.definition.generic.end.aidl}
+        patterns:
+          - include: '#type'
+  generic:
+    patterns:
+      - include: '#comments'
+      - include: '#type'
+      - match: (\b(cpp_header|const|enum|union)\b)
+        name: keyword.aidl
       - include: '#literal'
       - match: '([_a-zA-Z][_a-zA-Z0-9]*)'
         name: text.aidl
@@ -125,7 +182,79 @@ repository:
   interface_members:
     patterns:
       - include: '#comments'
-      - include: '#generic'
+      - include: '#constant_decl'
+      - include: '#method_decl'
+  parcelable_members:
+    patterns:
+      - include: '#comments'
+      - include: '#constant_decl'
+      - include: '#variable_decl'
+  enum_decl_body:
+    patterns:
+      - include: '#comments'
+      - name: punctuation.aidl
+        match: =
+      - include: '#const_expr'
+      - name: variable.other.aidl
+        match: '[_a-zA-Z][_a-zA-Z0-9]*'
+  constant_decl:
+    patterns:
+      - name: meta.constant.aidl
+        begin: (const)
+        beginCaptures:
+          '1': {name: storage.type.constant.aidl}
+        patterns:
+          - name: punctuation.aidl
+            match: =
+          - include: '#comments'
+          - include: '#type'
+          - include: '#const_expr'
+          - name: entity.name.constant.aidl
+            match: '[_a-zA-Z][_a-zA-Z0-9]*'
+        end: (;)
+        endCaptures:
+          '1': {name: punctuation.terminator.aidl}
+  variable_decl:
+    patterns:
+      - name: punctuation.aidl
+        match: =
+      - include: '#type'
+      - include: '#const_expr'
+      - name: variable.other.aidl
+        match: '[_a-zA-Z][_a-zA-Z0-9]*'
+      - name: punctuation.terminator.aidl
+        match: ;
+  method_decl:
+    patterns:
+      - include: '#type'
+      - include: '#annotation'
+      - name: storage.modifier.aidl
+        match: oneway
+      - name: entity.name.function.aidl
+        match: '[_a-zA-Z][_a-zA-Z0-9]*'
+      - name: punctuation.aidl
+        match: =
+      - name: punctuation.terminator.aidl
+        match: ;
+      - name: meta.function.parameters.aidl
+        begin: (\()
+        beginCaptures:
+          '1': {name: punctuation.definition.parameters.begin.aidl}
+        end: (\))
+        endCaptures:
+          '1': {name: punctuation.definition.parameters.end.aidl}
+        # arg_list
+        patterns:
+          - name: punctuation.separator.parameter.method.aidl
+            match: ','
+          - name: storage.modifier.aidl
+            match: (in|out|inout)
+          - include: '#type'
+          - name: variable.parameter.aidl
+            match: '[_a-zA-Z][_a-zA-Z0-9]*'
+  const_expr:
+    patterns:
+      - include: '#literal'
   literal:
     patterns:
       - include: '#numeric'
