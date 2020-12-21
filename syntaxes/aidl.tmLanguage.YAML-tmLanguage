@@ -10,22 +10,18 @@ patterns:
 repository:
   main:
     patterns:
-      - include: '#multi_line_comment'
-      - match: (//.*)
-        name: comment.line.double-slash.aidl
+      - include: '#comments'
       - include: '#package'
       - include: '#import'
       - include: '#decls'
       - begin: '(\{)'
         beginCaptures:
-          '1':
-            name: punctuation.aidl
+          '1': {name: punctuation.aidl}
         patterns:
           - include: '#main__1'
         end: '(\})'
         endCaptures:
-          '1':
-            name: punctuation.aidl
+          '1': {name: punctuation.aidl}
       - match: '([^\s])'
         name: invalid.illegal.aidl
   annotation:
@@ -42,38 +38,25 @@ repository:
       - include: '#annotation'
       - begin: '(interface)(\s+)([_a-zA-Z][_a-zA-Z0-9]*)(\s+)(\{)'
         beginCaptures:
-          '1':
-            name: keyword.aidl
-          '2':
-            name: text.aidl
-          '3':
-            name: text.aidl
-          '4':
-            name: text.aidl
-          '5':
-            name: punctuation.aidl
+          '1': {name: keyword.aidl}
+          '2': {name: text.aidl}
+          '3': {name: text.aidl}
+          '4': {name: text.aidl}
+          '5': {name: punctuation.aidl}
         patterns:
           - include: '#interface_members'
         end: '(\})'
         endCaptures:
-          '1':
-            name: punctuation.aidl
+          '1': {name: punctuation.aidl}
       - begin: '(oneway)(\s)(interface)(\s+)([_a-zA-Z][_a-zA-Z0-9]*)(\s+)(\{)'
         beginCaptures:
-          '1':
-            name: keyword.aidl
-          '2':
-            name: text.aidl
-          '3':
-            name: keyword.aidl
-          '4':
-            name: text.aidl
-          '5':
-            name: text.aidl
-          '6':
-            name: text.aidl
-          '7':
-            name: punctuation.aidl
+          '1': {name: keyword.aidl}
+          '2': {name: text.aidl}
+          '3': {name: keyword.aidl}
+          '4': {name: text.aidl}
+          '5': {name: text.aidl}
+          '6': {name: text.aidl}
+          '7': {name: punctuation.aidl}
         patterns:
           - include: '#interface_members'
         end: '(\})'
@@ -94,24 +77,20 @@ repository:
         name: text.aidl
       - begin: (\()
         beginCaptures:
-          '1':
-            name: punctuation.aidl
+          '1': {name: punctuation.aidl}
         patterns:
           - include: '#generic__1'
         end: (\))
         endCaptures:
-          '1':
-            name: punctuation.aidl
+          '1': {name: punctuation.aidl}
       - begin: '(\[)'
         beginCaptures:
-          '1':
-            name: punctuation.aidl
+          '1': {name: punctuation.aidl}
         patterns:
           - include: '#generic__2'
         end: '(\])'
         endCaptures:
-          '1':
-            name: punctuation.aidl
+          '1': {name: punctuation.aidl}
       - match: >-
           ([\x{003a}\x{003b}\x{002c}.\x{003d}\x{002b}\x{002a}\x{002f}\x{0025}\x{0026}\x{007c}\x{0021}\x{007e}\x{003c}\x{003e}\^\-]|<<|>>|&&|\|\||<=|>=|==|!=)
         name: punctuation.aidl
@@ -125,14 +104,12 @@ repository:
     patterns:
       - begin: (import)
         beginCaptures:
-          '1':
-            name: keyword.aidl
+          '1': {name: keyword.aidl}
         patterns:
           - include: '#import__1'
         end: (;)
         endCaptures:
-          '1':
-            name: punctuation.aidl
+          '1': {name: punctuation.aidl}
   import__1:
     patterns:
       - match: '(([_a-zA-Z][_a-zA-Z0-9]*)(?:\.([_a-zA-Z][_a-zA-Z0-9]*))+)'
@@ -157,22 +134,18 @@ repository:
     patterns:
       - begin: (/\*\*)
         beginCaptures:
-          '1':
-            name: comment.block.documentation.aidl
+          '1': {name: comment.block.documentation.aidl}
         contentName: comment.block.documentation.aidl
         end: (\*/)
         endCaptures:
-          '1':
-            name: comment.block.documentation.aidl
+          '1': {name: comment.block.documentation.aidl}
       - begin: (/\*)
         beginCaptures:
-          '1':
-            name: comment.block.aidl
+          '1': {name: comment.block.aidl}
         contentName: comment.block.aidl
         end: (\*/)
         endCaptures:
-          '1':
-            name: comment.block.aidl
+          '1': {name: comment.block.aidl}
   multi_line_comment__1:
     patterns: []
   multi_line_comment__2:
@@ -190,14 +163,12 @@ repository:
     patterns:
       - begin: (package)
         beginCaptures:
-          '1':
-            name: keyword.aidl
+          '1': {name: keyword.aidl}
         patterns:
           - include: '#package__1'
         end: (;)
         endCaptures:
-          '1':
-            name: punctuation.aidl
+          '1': {name: punctuation.aidl}
   package__1:
     patterns:
       - match: '(([_a-zA-Z][_a-zA-Z0-9]*)(?:\.([_a-zA-Z][_a-zA-Z0-9]*))+)'

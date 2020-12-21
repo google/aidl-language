@@ -16,11 +16,7 @@
 		"main": {
 			"patterns": [
 				{
-					"include": "#multi_line_comment"
-				},
-				{
-					"match": "(\/\/.*)",
-					"name": "comment.line.double-slash.aidl"
+					"include": "#comments"
 				},
 				{
 					"include": "#package"
@@ -70,7 +66,7 @@
 					"include": "#multi_line_comment"
 				},
 				{
-					"match": "(\/\/.*)",
+					"match": "(//.*)",
 					"name": "comment.line.double-slash.aidl"
 				}
 			]
@@ -302,14 +298,14 @@
 		"multi_line_comment": {
 			"patterns": [
 				{
-					"begin": "(\/\\*\\*)",
+					"begin": "(/\\*\\*)",
 					"beginCaptures": {
 						"1": {
 							"name": "comment.block.documentation.aidl"
 						}
 					},
 					"contentName": "comment.block.documentation.aidl",
-					"end": "(\\*\/)",
+					"end": "(\\*/)",
 					"endCaptures": {
 						"1": {
 							"name": "comment.block.documentation.aidl"
@@ -317,14 +313,14 @@
 					}
 				},
 				{
-					"begin": "(\/\\*)",
+					"begin": "(/\\*)",
 					"beginCaptures": {
 						"1": {
 							"name": "comment.block.aidl"
 						}
 					},
 					"contentName": "comment.block.aidl",
-					"end": "(\\*\/)",
+					"end": "(\\*/)",
 					"endCaptures": {
 						"1": {
 							"name": "comment.block.aidl"
