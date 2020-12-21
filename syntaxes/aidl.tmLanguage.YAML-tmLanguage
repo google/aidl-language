@@ -14,14 +14,6 @@ repository:
       - include: '#package'
       - include: '#import'
       - include: '#decls'
-      - begin: '(\{)'
-        beginCaptures:
-          '1': {name: punctuation.aidl}
-        patterns:
-          - include: '#main__1'
-        end: '(\})'
-        endCaptures:
-          '1': {name: punctuation.aidl}
       - match: '([^\s])'
         name: invalid.illegal.aidl
   annotation:
@@ -264,9 +256,6 @@ repository:
           - name: punctuation.separator.aidl
             match: ','
           - include: '#const_expr'
-  main__1:
-    patterns:
-      - include: '#main'
   multi_line_comment:
     patterns:
       - begin: (/\*\*)
