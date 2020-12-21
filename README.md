@@ -2,6 +2,8 @@
 
 Syntax highlighting for AIDL, the Android Interface Definition Language.
 
+This is not an officially supported Google product.
+
 ## Release Notes
 
 ### 0.1.0
