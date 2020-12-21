@@ -41,34 +41,19 @@ repository:
   decls:
     patterns:
       - include: '#annotation'
+      # interface_decl
       - name: meta.interface.aidl
-        begin: '(interface)(\s+)([_a-zA-Z][_a-zA-Z0-9]*)(\s+)(\{)'
+        begin: '(?:(oneway)\s+)?(interface)\s+([_a-zA-Z][_a-zA-Z0-9]*)\s+(\{)'
         beginCaptures:
-          '1': {name: keyword.aidl}
-          '2': {name: text.aidl}
+          '1': {name: storage.modifier.aidl}
+          '2': {name: storage.type.interface.aidl}
           '3': {name: entity.name.type.interface.aidl}
-          '4': {name: text.aidl}
-          '5': {name: punctuation.section.braces.begin.aidl}
+          '4': {name: punctuation.section.braces.begin.aidl}
         patterns:
           - include: '#interface_members'
         end: '(\})'
         endCaptures:
           '1': {name: punctuation.section.braces.end.aidl}
-      - begin: '(oneway)(\s)(interface)(\s+)([_a-zA-Z][_a-zA-Z0-9]*)(\s+)(\{)'
-        beginCaptures:
-          '1': {name: keyword.aidl}
-          '2': {name: text.aidl}
-          '3': {name: keyword.aidl}
-          '4': {name: text.aidl}
-          '5': {name: text.aidl}
-          '6': {name: text.aidl}
-          '7': {name: punctuation.aidl}
-        patterns:
-          - include: '#interface_members'
-        end: '(\})'
-        endCaptures:
-          '1':
-            name: punctuation.aidl
   generic:
     patterns:
       - include: '#comments'
