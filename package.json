@@ -1,8 +1,8 @@
 {
     "name": "aidl-language",
-    "displayName": "AIDL Language",
+    "displayName": "AIDL",
     "description": "Syntax highlighting for the Android Interface Definition Language.",
-    "version": "0.0.1",
+    "version": "0.1.0",
     "engines": {
         "vscode": "^1.52.0"
     },
