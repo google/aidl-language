@@ -43,7 +43,7 @@ repository:
           - include: '#comments'
           - name: punctuation.separator.parameter.method.aidl
             match: ','
-          - name: punctuation.aidl
+          - name: keyword.operator.assignment.aidl
             match: '='
           - include: '#const_expr'
           - name: variable.parameter.aidl
@@ -174,7 +174,7 @@ repository:
   enum_decl_body:
     patterns:
       - include: '#comments'
-      - name: punctuation.aidl
+      - name: keyword.operator.assignment.aidl
         match: =
       - include: '#const_expr'
       - name: variable.other.aidl
@@ -186,7 +186,7 @@ repository:
         beginCaptures:
           '1': {name: storage.type.constant.aidl}
         patterns:
-          - name: punctuation.aidl
+          - name: keyword.operator.assignment.aidl
             match: =
           - include: '#comments'
           - include: '#type'
@@ -198,7 +198,7 @@ repository:
           '1': {name: punctuation.terminator.aidl}
   variable_decl:
     patterns:
-      - name: punctuation.aidl
+      - name: keyword.operator.assignment.aidl
         match: =
       - include: '#type'
       - include: '#const_expr'
@@ -214,7 +214,7 @@ repository:
         match: oneway
       - name: entity.name.function.aidl
         match: '[_a-zA-Z][_a-zA-Z0-9]*'
-      - name: punctuation.aidl
+      - name: keyword.operator.assignment.aidl
         match: =
       - name: punctuation.terminator.aidl
         match: ;
