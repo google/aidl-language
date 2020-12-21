@@ -26,13 +26,18 @@ repository:
         name: invalid.illegal.aidl
   annotation:
     patterns:
-      - match: '(@([_a-zA-Z][_a-zA-Z0-9]*))'
+      - match: '(@)([_a-zA-Z][_a-zA-Z0-9]*)'
         name: storage.type.annotation.aidl
+        captures:
+          '1': {name: punctuation.definition.annotation.aidl}
+          '2': {name: meta.annotation.identifier.aidl}
   comments:
     patterns:
       - include: '#multi_line_comment'
-      - match: (//.*)
+      - match: (//).*
         name: comment.line.double-slash.aidl
+        captures:
+          '1': {name: punctuation.definition.comment.aidl}
   decls:
     patterns:
       - include: '#annotation'
@@ -42,12 +47,12 @@ repository:
           '2': {name: text.aidl}
           '3': {name: text.aidl}
           '4': {name: text.aidl}
-          '5': {name: punctuation.aidl}
+          '5': {name: punctuation.section.braces.begin.aidl}
         patterns:
           - include: '#interface_members'
         end: '(\})'
         endCaptures:
-          '1': {name: punctuation.aidl}
+          '1': {name: punctuation.section.braces.end.aidl}
       - begin: '(oneway)(\s)(interface)(\s+)([_a-zA-Z][_a-zA-Z0-9]*)(\s+)(\{)'
         beginCaptures:
           '1': {name: keyword.aidl}
@@ -109,7 +114,7 @@ repository:
           - include: '#import__1'
         end: (;)
         endCaptures:
-          '1': {name: punctuation.aidl}
+          '1': {name: punctuation.terminator.aidl}
   import__1:
     patterns:
       - match: '(([_a-zA-Z][_a-zA-Z0-9]*)(?:\.([_a-zA-Z][_a-zA-Z0-9]*))+)'
@@ -123,8 +128,12 @@ repository:
       - include: '#numeric'
       - match: ('.')
         name: constant.character.aidl
-      - match: '("[^\"]*")'
-        name: string.quoted.double.aidl
+      - match: '(")([^\"]*)(")'
+        name: meta.string
+        captures:
+          '1': {name: punctuation.definition.string.begin.aidl}
+          '2': {name: string.quoted.double.aidl}
+          '3': {name: punctuation.definition.string.end.aidl}
       - match: (true|false)
         name: constant.language.aidl
   main__1:
@@ -134,18 +143,18 @@ repository:
     patterns:
       - begin: (/\*\*)
         beginCaptures:
-          '1': {name: comment.block.documentation.aidl}
-        contentName: comment.block.documentation.aidl
+          '1': {name: punctuation.definition.comment.aidl}
+        name: comment.block.documentation.aidl
         end: (\*/)
         endCaptures:
-          '1': {name: comment.block.documentation.aidl}
+          '1': {name: punctuation.definition.comment.aidl}
       - begin: (/\*)
         beginCaptures:
-          '1': {name: comment.block.aidl}
-        contentName: comment.block.aidl
+          '1': {name: punctuation.definition.comment.aidl}
+        name: comment.block.aidl
         end: (\*/)
         endCaptures:
-          '1': {name: comment.block.aidl}
+          '1': {name: punctuation.definition.comment.aidl}
   multi_line_comment__1:
     patterns: []
   multi_line_comment__2:
@@ -168,7 +177,7 @@ repository:
           - include: '#package__1'
         end: (;)
         endCaptures:
-          '1': {name: punctuation.aidl}
+          '1': {name: punctuation.terminator.aidl}
   package__1:
     patterns:
       - match: '(([_a-zA-Z][_a-zA-Z0-9]*)(?:\.([_a-zA-Z][_a-zA-Z0-9]*))+)'

@@ -55,8 +55,16 @@
 		"annotation": {
 			"patterns": [
 				{
-					"match": "(@([_a-zA-Z][_a-zA-Z0-9]*))",
-					"name": "storage.type.annotation.aidl"
+					"match": "(@)([_a-zA-Z][_a-zA-Z0-9]*)",
+					"name": "storage.type.annotation.aidl",
+					"captures": {
+						"1": {
+							"name": "punctuation.definition.annotation.aidl"
+						},
+						"2": {
+							"name": "meta.annotation.identifier.aidl"
+						}
+					}
 				}
 			]
 		},
@@ -66,8 +74,13 @@
 					"include": "#multi_line_comment"
 				},
 				{
-					"match": "(//.*)",
-					"name": "comment.line.double-slash.aidl"
+					"match": "(//).*",
+					"name": "comment.line.double-slash.aidl",
+					"captures": {
+						"1": {
+							"name": "punctuation.definition.comment.aidl"
+						}
+					}
 				}
 			]
 		},
@@ -92,7 +105,7 @@
 							"name": "text.aidl"
 						},
 						"5": {
-							"name": "punctuation.aidl"
+							"name": "punctuation.section.braces.begin.aidl"
 						}
 					},
 					"patterns": [
@@ -103,7 +116,7 @@
 					"end": "(\\})",
 					"endCaptures": {
 						"1": {
-							"name": "punctuation.aidl"
+							"name": "punctuation.section.braces.end.aidl"
 						}
 					}
 				},
@@ -245,7 +258,7 @@
 					"end": "(;)",
 					"endCaptures": {
 						"1": {
-							"name": "punctuation.aidl"
+							"name": "punctuation.terminator.aidl"
 						}
 					}
 				}
@@ -279,8 +292,19 @@
 					"name": "constant.character.aidl"
 				},
 				{
-					"match": "(\"[^\\\"]*\")",
-					"name": "string.quoted.double.aidl"
+					"match": "(\")([^\\\"]*)(\")",
+					"name": "meta.string",
+					"captures": {
+						"1": {
+							"name": "punctuation.definition.string.begin.aidl"
+						},
+						"2": {
+							"name": "string.quoted.double.aidl"
+						},
+						"3": {
+							"name": "punctuation.definition.string.end.aidl"
+						}
+					}
 				},
 				{
 					"match": "(true|false)",
@@ -301,14 +325,14 @@
 					"begin": "(/\\*\\*)",
 					"beginCaptures": {
 						"1": {
-							"name": "comment.block.documentation.aidl"
+							"name": "punctuation.definition.comment.aidl"
 						}
 					},
-					"contentName": "comment.block.documentation.aidl",
+					"name": "comment.block.documentation.aidl",
 					"end": "(\\*/)",
 					"endCaptures": {
 						"1": {
-							"name": "comment.block.documentation.aidl"
+							"name": "punctuation.definition.comment.aidl"
 						}
 					}
 				},
@@ -316,14 +340,14 @@
 					"begin": "(/\\*)",
 					"beginCaptures": {
 						"1": {
-							"name": "comment.block.aidl"
+							"name": "punctuation.definition.comment.aidl"
 						}
 					},
-					"contentName": "comment.block.aidl",
+					"name": "comment.block.aidl",
 					"end": "(\\*/)",
 					"endCaptures": {
 						"1": {
-							"name": "comment.block.aidl"
+							"name": "punctuation.definition.comment.aidl"
 						}
 					}
 				}
@@ -368,7 +392,7 @@
 					"end": "(;)",
 					"endCaptures": {
 						"1": {
-							"name": "punctuation.aidl"
+							"name": "punctuation.terminator.aidl"
 						}
 					}
 				}
