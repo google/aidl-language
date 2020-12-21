@@ -190,14 +190,11 @@ repository:
         beginCaptures:
           '1': {name: keyword.aidl}
         patterns:
-          - include: '#import__1'
+          - match: '(([_a-zA-Z][_a-zA-Z0-9]*)(?:\.([_a-zA-Z][_a-zA-Z0-9]*))*)'
+            name: text.aidl
         end: (;)
         endCaptures:
           '1': {name: punctuation.terminator.aidl}
-  import__1:
-    patterns:
-      - match: '(([_a-zA-Z][_a-zA-Z0-9]*)(?:\.([_a-zA-Z][_a-zA-Z0-9]*))*)'
-        name: text.aidl
   interface_members:
     patterns:
       - include: '#comments'
@@ -325,11 +322,8 @@ repository:
         beginCaptures:
           '1': {name: keyword.aidl}
         patterns:
-          - include: '#package__1'
+          - match: '(([_a-zA-Z][_a-zA-Z0-9]*)(?:\.([_a-zA-Z][_a-zA-Z0-9]*))+)'
+            name: text.aidl
         end: (;)
         endCaptures:
           '1': {name: punctuation.terminator.aidl}
-  package__1:
-    patterns:
-      - match: '(([_a-zA-Z][_a-zA-Z0-9]*)(?:\.([_a-zA-Z][_a-zA-Z0-9]*))+)'
-        name: text.aidl

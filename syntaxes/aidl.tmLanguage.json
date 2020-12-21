@@ -429,7 +429,8 @@
 					},
 					"patterns": [
 						{
-							"include": "#import__1"
+							"match": "(([_a-zA-Z][_a-zA-Z0-9]*)(?:\\.([_a-zA-Z][_a-zA-Z0-9]*))*)",
+							"name": "text.aidl"
 						}
 					],
 					"end": "(;)",
@@ -438,14 +439,6 @@
 							"name": "punctuation.terminator.aidl"
 						}
 					}
-				}
-			]
-		},
-		"import__1": {
-			"patterns": [
-				{
-					"match": "(([_a-zA-Z][_a-zA-Z0-9]*)(?:\\.([_a-zA-Z][_a-zA-Z0-9]*))*)",
-					"name": "text.aidl"
 				}
 			]
 		},
@@ -722,7 +715,8 @@
 					},
 					"patterns": [
 						{
-							"include": "#package__1"
+							"match": "(([_a-zA-Z][_a-zA-Z0-9]*)(?:\\.([_a-zA-Z][_a-zA-Z0-9]*))+)",
+							"name": "text.aidl"
 						}
 					],
 					"end": "(;)",
@@ -731,14 +725,6 @@
 							"name": "punctuation.terminator.aidl"
 						}
 					}
-				}
-			]
-		},
-		"package__1": {
-			"patterns": [
-				{
-					"match": "(([_a-zA-Z][_a-zA-Z0-9]*)(?:\\.([_a-zA-Z][_a-zA-Z0-9]*))+)",
-					"name": "text.aidl"
 				}
 			]
 		}
