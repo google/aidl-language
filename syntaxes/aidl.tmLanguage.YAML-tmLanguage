@@ -41,11 +41,12 @@ repository:
   decls:
     patterns:
       - include: '#annotation'
-      - begin: '(interface)(\s+)([_a-zA-Z][_a-zA-Z0-9]*)(\s+)(\{)'
+      - name: meta.interface.aidl
+        begin: '(interface)(\s+)([_a-zA-Z][_a-zA-Z0-9]*)(\s+)(\{)'
         beginCaptures:
           '1': {name: keyword.aidl}
           '2': {name: text.aidl}
-          '3': {name: text.aidl}
+          '3': {name: entity.name.type.interface.aidl}
           '4': {name: text.aidl}
           '5': {name: punctuation.section.braces.begin.aidl}
         patterns:

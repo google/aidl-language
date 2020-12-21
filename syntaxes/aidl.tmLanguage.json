@@ -90,6 +90,7 @@
 					"include": "#annotation"
 				},
 				{
+					"name": "meta.interface.aidl",
 					"begin": "(interface)(\\s+)([_a-zA-Z][_a-zA-Z0-9]*)(\\s+)(\\{)",
 					"beginCaptures": {
 						"1": {
@@ -99,7 +100,7 @@
 							"name": "text.aidl"
 						},
 						"3": {
-							"name": "text.aidl"
+							"name": "entity.name.type.interface.aidl"
 						},
 						"4": {
 							"name": "text.aidl"
