@@ -31,6 +31,23 @@ repository:
         captures:
           '1': {name: punctuation.definition.annotation.aidl}
           '2': {name: meta.annotation.identifier.aidl}
+      - name: meta.annotation.parameters.aidl
+        begin: (\()
+        beginCaptures:
+          '1': {name: punctuation.definition.parameters.begin.aidl}
+        end: (\))
+        endCaptures:
+          '1': {name: punctuation.definition.parameters.end.aidl}
+        # parameter_list
+        patterns:
+          - include: '#comments'
+          - name: punctuation.separator.parameter.method.aidl
+            match: ','
+          - name: punctuation.aidl
+            match: '='
+          - include: '#const_expr'
+          - name: variable.parameter.aidl
+            match: '[_a-zA-Z][_a-zA-Z0-9]*'
   comments:
     patterns:
       - include: '#multi_line_comment'
