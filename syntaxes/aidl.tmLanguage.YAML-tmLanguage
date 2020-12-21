@@ -60,7 +60,7 @@ repository:
       - include: '#annotation'
       # interface_decl
       - name: meta.interface.aidl
-        begin: '(?:(oneway)\s+)?(interface)\s+([_a-zA-Z][_a-zA-Z0-9]*)\s+(\{)'
+        begin: '(?:(oneway)\s+)?(interface)\s+([_a-zA-Z][_a-zA-Z0-9]*)\s*(\{)'
         beginCaptures:
           '1': {name: storage.modifier.aidl}
           '2': {name: storage.type.interface.aidl}
