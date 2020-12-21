@@ -4,6 +4,8 @@
 		"aidl"
 	],
 	"name": "AIDL",
+	"foldingStartMarker": "\\{\\s*$",
+	"foldingStopMarker": "^\\s*\\}",
 	"patterns": [
 		{
 			"include": "#main"
