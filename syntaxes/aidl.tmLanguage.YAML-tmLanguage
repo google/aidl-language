@@ -150,40 +150,6 @@ repository:
           '1': {name: punctuation.definition.generic.end.aidl}
         patterns:
           - include: '#type'
-  generic:
-    patterns:
-      - include: '#comments'
-      - include: '#type'
-      - match: (\b(cpp_header|const|enum|union)\b)
-        name: keyword.aidl
-      - include: '#literal'
-      - match: '([_a-zA-Z][_a-zA-Z0-9]*)'
-        name: text.aidl
-      - begin: (\()
-        beginCaptures:
-          '1': {name: punctuation.aidl}
-        patterns:
-          - include: '#generic__1'
-        end: (\))
-        endCaptures:
-          '1': {name: punctuation.aidl}
-      - begin: '(\[)'
-        beginCaptures:
-          '1': {name: punctuation.aidl}
-        patterns:
-          - include: '#generic__2'
-        end: '(\])'
-        endCaptures:
-          '1': {name: punctuation.aidl}
-      - match: >-
-          ([\x{003a}\x{003b}\x{002c}.\x{003d}\x{002b}\x{002a}\x{002f}\x{0025}\x{0026}\x{007c}\x{0021}\x{007e}\x{003c}\x{003e}\^\-]|<<|>>|&&|\|\||<=|>=|==|!=)
-        name: punctuation.aidl
-  generic__1:
-    patterns:
-      - include: '#generic'
-  generic__2:
-    patterns:
-      - include: '#generic'
   import:
     patterns:
       - begin: (import)
@@ -270,9 +236,6 @@ repository:
             match: '[_a-zA-Z][_a-zA-Z0-9]*'
   const_expr:
     patterns:
-      - include: '#literal'
-  literal:
-    patterns:
       - include: '#numeric'
       - match: ('.')
         name: constant.character.aidl
@@ -284,6 +247,23 @@ repository:
           '3': {name: punctuation.definition.string.end.aidl}
       - match: (true|false)
         name: constant.language.aidl
+      - name: keyword.operator.logical.aidl
+        match: ([!<>]|&&|\|\||<=|>=|==|!=)
+      - name: keyword.operator.bitwise.aidl
+        match: ([&|~\^]|<<|>>)
+      - name: keyword.operator.arithmetic.aidl
+        match: ([+*/%\-])
+      - name: meta.braces.aidl
+        begin: (\{})
+        beginCaptures:
+          '1': {name: punctuation.section.braces.begin.aidl}
+        end: (\})
+        endCaptures:
+          '1': {name: punctuation.section.braces.end.aidl}
+        patterns:
+          - name: punctuation.separator.aidl
+            match: ','
+          - include: '#const_expr'
   main__1:
     patterns:
       - include: '#main'
