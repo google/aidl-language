@@ -9,6 +9,16 @@
     "categories": [
         "Programming Languages"
     ],
+    "keywords": [
+        "AIDL",
+        "Android"
+    ],
+    "publisher": "Google",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/google/aidl-language.git"
+    },
+    "license": "Apache-2.0",
     "contributes": {
         "languages": [
             {
