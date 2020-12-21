@@ -189,6 +189,57 @@
 					}
 				},
 				{
+					"name": "meta.parcelable.aidl",
+					"match": "(parcelable)\\s+((?:[_a-zA-Z][_a-zA-Z0-9]*)(?:\\.([_a-zA-Z][_a-zA-Z0-9]*))*)\\s*(?:(<)((:?[_a-zA-Z][_a-zA-Z0-9]*)(:?,\\s+[_a-zA-Z][_a-zA-Z0-9]*)*)(>)\\s*)?(;)",
+					"captures": {
+						"1": {
+							"name": "storage.type.parcelable.aidl"
+						},
+						"2": {
+							"name": "entity.name.type.parcelable.aidl"
+						},
+						"3": {
+							"name": "punctuation.definition.generic.begin.aidl"
+						},
+						"4": {
+							"name": "entity.name.other.aidl"
+						},
+						"5": {
+							"name": "punctuation.definition.generic.end.aidl"
+						},
+						"6": {
+							"name": "punctuation.terminator.aidl"
+						}
+					}
+				},
+				{
+					"name": "meta.parcelable.aidl",
+					"match": "(parcelable)\\s+((?:[_a-zA-Z][_a-zA-Z0-9]*)(?:\\.([_a-zA-Z][_a-zA-Z0-9]*))*)\\s*(cpp_header)\\s*(\")([^\\\"]*)(\")(;)",
+					"captures": {
+						"1": {
+							"name": "storage.type.parcelable.aidl"
+						},
+						"2": {
+							"name": "entity.name.type.parcelable.aidl"
+						},
+						"3": {
+							"name": "keyword.aidl"
+						},
+						"4": {
+							"name": "punctuation.definition.string.begin.aidl"
+						},
+						"5": {
+							"name": "string.quoted.double.aidl"
+						},
+						"6": {
+							"name": "punctuation.definition.string.end.aidl"
+						},
+						"7": {
+							"name": "punctuation.terminator.aidl"
+						}
+					}
+				},
+				{
 					"name": "meta.enum.aidl",
 					"begin": "(enum)\\s+([_a-zA-Z][_a-zA-Z0-9]*)\\s*(\\{)",
 					"beginCaptures": {
