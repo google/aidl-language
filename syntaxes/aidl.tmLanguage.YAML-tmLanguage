@@ -32,19 +32,18 @@ repository:
         name: invalid.illegal.aidl
   annotation:
     patterns:
-      - match: '(@)([_a-zA-Z][_a-zA-Z0-9]*)'
-        name: storage.type.annotation.aidl
-        captures:
+      # Annotation with parameters
+      - name: storage.type.annotation.aidl
+        begin: (@)([_a-zA-Z][_a-zA-Z0-9]*)\s*(\()
+        beginCaptures:
           '1': {name: punctuation.definition.annotation.aidl}
           '2': {name: meta.annotation.identifier.aidl}
-      - name: meta.annotation.parameters.aidl
-        begin: (\()
-        beginCaptures:
-          '1': {name: punctuation.definition.parameters.begin.aidl}
+          '3': {name: punctuation.definition.parameters.begin.aidl}
         end: (\))
         endCaptures:
           '1': {name: punctuation.definition.parameters.end.aidl}
         # parameter_list
+        contentName: meta.annotation.parameters.aidl
         patterns:
           - include: '#comments'
           - name: punctuation.separator.parameter.method.aidl
@@ -54,6 +53,12 @@ repository:
           - include: '#const_expr'
           - name: variable.parameter.aidl
             match: '[_a-zA-Z][_a-zA-Z0-9]*'
+      # Annotation without parameters
+      - match: (@)([_a-zA-Z][_a-zA-Z0-9]*)
+        name: storage.type.annotation.aidl
+        captures:
+          '1': {name: punctuation.definition.annotation.aidl}
+          '2': {name: meta.annotation.identifier.aidl}
   comments:
     patterns:
       - include: '#multi_line_comment'
@@ -214,8 +219,8 @@ repository:
         match: ;
   method_decl:
     patterns:
-      - include: '#type'
       - include: '#annotation'
+      - include: '#type'
       - name: storage.modifier.aidl
         match: oneway
       - name: entity.name.function.aidl
