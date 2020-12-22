@@ -296,11 +296,11 @@
 					"include": "#annotation"
 				},
 				{
-					"match": "(\\b(void|boolean|byte|char|int|long|float|double)\\b)",
+					"match": "\\b(void|boolean|byte|char|int|long|float|double)\\b",
 					"name": "storage.type.aidl"
 				},
 				{
-					"match": "(\\b(CharSequence|FileDescriptor|IBinder|List|Map|ParcelableHolder|ParcelFileDescriptor|String)\\b)",
+					"match": "\\b(CharSequence|FileDescriptor|IBinder|List|Map|ParcelableHolder|ParcelFileDescriptor|String)\\b",
 					"name": "support.class.aidl"
 				},
 				{
