@@ -168,7 +168,7 @@ repository:
           '1': {name: keyword.aidl}
         patterns:
           - match: '(([_a-zA-Z][_a-zA-Z0-9]*)(?:\.([_a-zA-Z][_a-zA-Z0-9]*))*)'
-            name: text.aidl
+            name: entity.name.type.aidl
         end: (;)
         endCaptures:
           '1': {name: punctuation.terminator.aidl}
@@ -311,7 +311,7 @@ repository:
           '1': {name: keyword.aidl}
         patterns:
           - match: '(([_a-zA-Z][_a-zA-Z0-9]*)(?:\.([_a-zA-Z][_a-zA-Z0-9]*))+)'
-            name: text.aidl
+            name: entity.name.namespace.aidl
         end: (;)
         endCaptures:
           '1': {name: punctuation.terminator.aidl}
