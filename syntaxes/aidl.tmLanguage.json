@@ -502,7 +502,7 @@
 						},
 						{
 							"name": "storage.modifier.aidl",
-							"match": "(in|out|inout)"
+							"match": "\\b(in|out|inout)\\b"
 						},
 						{
 							"include": "#type"

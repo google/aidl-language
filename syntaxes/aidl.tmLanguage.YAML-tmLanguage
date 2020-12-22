@@ -241,7 +241,7 @@ repository:
           - name: punctuation.separator.parameter.method.aidl
             match: ','
           - name: storage.modifier.aidl
-            match: (in|out|inout)
+            match: \b(in|out|inout)\b
           - include: '#type'
           - name: variable.parameter.aidl
             match: '[_a-zA-Z][_a-zA-Z0-9]*'
