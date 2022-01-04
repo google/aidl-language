@@ -204,16 +204,15 @@ repository:
       - include: '#type'
       - name: storage.modifier.aidl
         match: oneway
-      - name: entity.name.function.aidl
-        match: '[_a-zA-Z][_a-zA-Z0-9]*'
       - name: keyword.operator.assignment.aidl
         match: =
       - name: punctuation.terminator.aidl
         match: ;
-      - name: meta.function.parameters.aidl
-        begin: (\()
+      - contentName: meta.function.parameters.aidl
+        begin: '([_a-zA-Z][_a-zA-Z0-9]*)\s*(\()'
         beginCaptures:
-          '1': {name: punctuation.definition.parameters.begin.aidl}
+          '1': {name: entity.name.function.aidl}
+          '2': {name: punctuation.definition.parameters.begin.aidl}
         end: (\))
         endCaptures:
           '1': {name: punctuation.definition.parameters.end.aidl}
