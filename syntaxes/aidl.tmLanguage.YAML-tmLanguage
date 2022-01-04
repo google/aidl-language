@@ -69,10 +69,6 @@ repository:
   decls:
     patterns:
       - include: '#annotation'
-      - include: '#comments'
-      - include: '#constant_decl'
-      - include: '#method_decl'
-      - include: '#variable_decl'
       - name: punctuation.section.braces.end.aidl
         match: '(\})'
       # interface_decl
@@ -134,6 +130,10 @@ repository:
           '4': {name: entity.name.other.aidl}
           '5': {name: punctuation.definition.generic.end.aidl}
           '6': {name: punctuation.section.braces.begin.aidl}
+      - include: '#comments'
+      - include: '#constant_decl'
+      - include: '#method_decl'
+      - include: '#variable_decl'
   type:
     patterns:
       - include: '#annotation'
