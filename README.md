@@ -6,6 +6,10 @@ This is not an officially supported Google product.
 
 ## Release Notes
 
+### 0.1.1
+
+Fixed issue with declarations nested under interface, parcelable, and union declarations.
+
 ### 0.1.0
 
 Initial release with a basic AIDL grammar for syntax highlighting.
