@@ -363,6 +363,9 @@
 				},
 				{
 					"include": "#method_decl"
+				},
+				{
+					"include": "#decls"
 				}
 			]
 		},
@@ -376,6 +379,9 @@
 				},
 				{
 					"include": "#variable_decl"
+				},
+				{
+					"include": "#decls"
 				}
 			]
 		},
