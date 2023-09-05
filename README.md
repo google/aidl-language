@@ -6,6 +6,10 @@ This is not an officially supported Google product.
 
 ## Release Notes
 
+## 0.1.2
+
+Added new keywords `ndk_header` and `rust_type`.
+
 ### 0.1.1
 
 Fixed issue with declarations nested under interface, parcelable, and union declarations.
