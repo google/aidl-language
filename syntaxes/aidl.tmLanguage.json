@@ -184,7 +184,7 @@
 				},
 				{
 					"name": "meta.parcelable.aidl",
-					"match": "(parcelable)\\s+((?:[_a-zA-Z][_a-zA-Z0-9]*)(?:\\.([_a-zA-Z][_a-zA-Z0-9]*))*)\\s*(cpp_header)\\s*(\")([^\\\"]*)(\")(;)",
+					"match": "(parcelable)\\s+((?:[_a-zA-Z][_a-zA-Z0-9]*)(?:\\.([_a-zA-Z][_a-zA-Z0-9]*))*)\\s*(;)?",
 					"captures": {
 						"1": {
 							"name": "storage.type.parcelable.aidl"
@@ -193,21 +193,31 @@
 							"name": "entity.name.type.parcelable.aidl"
 						},
 						"3": {
-							"name": "keyword.aidl"
-						},
-						"4": {
-							"name": "punctuation.definition.string.begin.aidl"
-						},
-						"5": {
-							"name": "string.quoted.double.aidl"
-						},
-						"6": {
-							"name": "punctuation.definition.string.end.aidl"
-						},
-						"7": {
 							"name": "punctuation.terminator.aidl"
 						}
 					}
+				},
+				{
+					"name": "meta.parcelable.aidl",
+					"match": "(cpp_header|ndk_header|rust_type)\\s*(\")([^\\\"]*)(\")",
+					"captures": {
+						"1": {
+							"name": "keyword.aidl"
+						},
+						"2": {
+							"name": "punctuation.definition.string.begin.aidl"
+						},
+						"3": {
+							"name": "string.quoted.double.aidl"
+						},
+						"4": {
+							"name": "punctuation.definition.string.end.aidl"
+						}
+					}
+				},
+				{
+					"name": "punctuation.terminator.aidl",
+					"match": ";"
 				},
 				{
 					"name": "meta.enum.aidl",

@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Added new keywords `ndk_header` and `rust_type`.
+
 ## [0.1.1]
 
 - Fixed issue with declarations nested under interface, parcelable, and union declarations.
