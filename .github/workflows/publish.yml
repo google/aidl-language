@@ -22,7 +22,7 @@ jobs:
           regex: "^refs/tags/(.+)$"
       - name: Publish to Open VSX Registry
         id: publish_to_open_vsx
-        uses: HaaLeo/publish-vscode-extension@v1
+        uses: HaaLeo/publish-vscode-extension@v2
         with:
           pat: ${{ secrets.OPEN_VSX_TOKEN }}
       - name: Upload packages
