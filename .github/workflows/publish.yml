@@ -26,7 +26,7 @@ jobs:
         with:
           pat: ${{ secrets.OPEN_VSX_TOKEN }}
       - name: Upload packages
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: vsix
           path: ${{ steps.publish_to_open_vsx.outputs.vsixPath }}
